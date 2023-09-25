@@ -62,8 +62,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
-            android:text="Cancel"
-            android:backgroundTint="#C3382E"
+            android:text="Exit"
+            android:backgroundTint="#705957"
             android:id="@+id/btnCancel_lg"/>
     </LinearLayout>
 </LinearLayout>

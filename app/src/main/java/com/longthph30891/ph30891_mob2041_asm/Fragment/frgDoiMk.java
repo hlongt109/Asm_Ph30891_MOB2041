@@ -1,8 +1,11 @@
 package com.longthph30891.ph30891_mob2041_asm.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -28,7 +31,6 @@ public class frgDoiMk extends Fragment {
     TextInputLayout ilOldPass, ilNewPass, ilConf;
     TextInputEditText edOldPass, edNewPass, edConf;
     Button btnSave, btnCancel;
-    ArrayList<ThuThu>list;
     thuThuDAO ttDAO;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,9 +48,7 @@ public class frgDoiMk extends Fragment {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                edOldPass.setText("");
-                edNewPass.setText("");
-                edConf.setText("");
+                onBackMenu();
             }
         });
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -57,32 +57,25 @@ public class frgDoiMk extends Fragment {
                 String oldPass = edOldPass.getText().toString();
                 String newPass = edNewPass.getText().toString();
                 String confPass = edConf.getText().toString();
-                ttDAO = new thuThuDAO(getActivity());
+                ttDAO = new thuThuDAO(getActivity()); // khởi tạo thuThuDAO
                 if (ttDAO.checkOldPassword(oldPass) && newPass.equals(confPass)){
-                    ThuThu tt = new ThuThu();
-                    tt.setMatKhau(newPass);
-                    if (ttDAO.update(tt)){
-                        Toast.makeText(getActivity(), "Đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
-                        //
-                    }else {
-                        Toast.makeText(getActivity(), "Lỗi đổi mật khẩu!", Toast.LENGTH_SHORT).show();
-                    }
+                    updatePassword(newPass);
                 } else if (!newPass.equals(confPass)) {
                     ilNewPass.setError("Mật khẩu không khớp");
                     ilConf.setError("Mật khẩu không khớp");
                 }else {
                     if(oldPass.isEmpty()||newPass.isEmpty() || confPass.isEmpty()){
-                        if (oldPass.equals("")){
+                        if (oldPass.isEmpty()){
                             ilOldPass.setError("Không để trống");
                         }else{
                             ilOldPass.setError(null);
                         }
-                        if(newPass.equals("")){
+                        if(newPass.isEmpty()){
                             ilNewPass.setError("Không để trống");
                         }else{
                             ilNewPass.setError(null);
                         }
-                        if(confPass.equals("")){
+                        if(confPass.isEmpty()){
                             ilConf.setError("Không để trống");
                         }else{
                             ilConf.setError(null);
@@ -94,5 +87,27 @@ public class frgDoiMk extends Fragment {
             }
         });
         return view;
+    }
+    public void updatePassword(String newPass){
+        Intent i = getActivity().getIntent();
+        String username = i.getStringExtra("USERNAME");
+        ThuThu tt = ttDAO.getUsn(username);
+        tt.setMatKhau(newPass);
+        if (ttDAO.update(tt)){
+            Toast.makeText(getActivity(), "Đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
+            edOldPass.setText("");
+            edNewPass.setText("");
+            edConf.setText("");
+        }else {
+            Toast.makeText(getActivity(), "Lỗi đổi mật khẩu!", Toast.LENGTH_SHORT).show();
+        }
+    }
+    public void onBackMenu(){
+        edOldPass.setText("");
+        edNewPass.setText("");
+        edConf.setText("");
+        // mở navigation Menu
+        DrawerLayout drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
+        drawer.openDrawer(GravityCompat.START);
     }
 }

@@ -132,7 +132,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cancel"
-            android:backgroundTint="#F16134"
+            android:backgroundTint="#705957"
             android:id="@+id/btnCancel_Pm_them"/>
     </LinearLayout>
 </LinearLayout>

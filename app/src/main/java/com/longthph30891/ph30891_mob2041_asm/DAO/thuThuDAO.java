@@ -1,5 +1,6 @@
 package com.longthph30891.ph30891_mob2041_asm.DAO;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -64,7 +65,7 @@ public class thuThuDAO {
     }
 
     // check Account
-    public boolean checkAcThuThu(String username, String password){
+    public boolean checkThuThuExist(String username, String password){
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String query = "SELECT * FROM THUTHU WHERE MaTT = ? AND MatKhau = ?";
         String[] selectionArgs ={username,password};
@@ -76,7 +77,7 @@ public class thuThuDAO {
     }
     public boolean checkUserNameExist(String username){
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String query = "SELECT * FROM THUTHU WHERE MaTT =?";
+        String query = "SELECT * FROM THUTHU WHERE MaTT = ?";
         String[] selectionArgs ={username};
         Cursor cursor = db.rawQuery(query,selectionArgs);
         boolean result = cursor.getCount()>0;
@@ -93,5 +94,26 @@ public class thuThuDAO {
         cursor.close();
         db.close();
         return result;
+    }
+    public ThuThu getUsn(String username){
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        ThuThu tt = null;
+        String query = "SELECT * FROM THUTHU WHERE MaTT =?";
+        String[] selectionArgs ={username};
+        Cursor cursor = db.rawQuery(query,selectionArgs);
+        if (cursor.moveToFirst()){
+            // Lấy thông tin từ cột cần thiết (thay thế phần này bằng cột thật của bảng THUTHU)
+            @SuppressLint("Range") String maTT = cursor.getString(cursor.getColumnIndex("MaTT"));
+            @SuppressLint("Range") String hoTenTT = cursor.getString(cursor.getColumnIndex("HoTenTT"));
+            @SuppressLint("Range") String matkhau = cursor.getString(cursor.getColumnIndex("MatKhau"));
+            // Tạo đối tượng ThanhVien với thông tin lấy từ cơ sở dữ liệu
+            tt = new ThuThu();
+            tt.setMaTT(maTT);
+            tt.setHoTenTT(hoTenTT);
+            tt.setMatKhau(matkhau);
+        }
+        cursor.close();
+        db.close();
+        return tt;
     }
 }

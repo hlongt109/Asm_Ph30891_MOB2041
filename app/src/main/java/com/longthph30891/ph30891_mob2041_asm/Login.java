@@ -57,14 +57,14 @@ public class Login extends AppCompatActivity {
                 String username = edUs.getText().toString();
                 String password = edPs.getText().toString();
                 if (adminDAO.checkTKAdmin(username, password)) {
-                    Toast.makeText(context, "Login Successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Welcome "+username, Toast.LENGTH_SHORT).show();
                     rememberAcc(username, password, true);
                     Intent intent = new Intent(Login.this, MainActivity.class);
                     intent.putExtra("USERNAME", username);
                     startActivity(intent);
                     finish();
-                } else if (thuThuDAO.checkAcThuThu(username, password)) {
-                    Toast.makeText(context, "Login Successfully", Toast.LENGTH_SHORT).show();
+                } else if (thuThuDAO.checkThuThuExist(username, password)) {
+                    Toast.makeText(context, "Welcome "+username, Toast.LENGTH_SHORT).show();
                     rememberAcc(username, password, true);
                     Intent intent = new Intent(Login.this, MainActivity.class);
                     intent.putExtra("USERNAME", username);
@@ -83,7 +83,7 @@ public class Login extends AppCompatActivity {
                             ilPs.setError(null);
                         }
                     }else {
-                        Toast.makeText(context, "Tài khoản không tồn tại", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Tên đăng nhập hoặc mật khẩu sai", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -110,12 +110,4 @@ public class Login extends AppCompatActivity {
             edPs.setText(pas);
         }
     }
-//    @Override
-//    public boolean onPrepareOptionsMenu(Menu menu) {
-//       if (thuThuDAO.checkAcThuThu(edUs.getText().toString(),edPs.getText().toString())){
-//            MenuItem item = menu.findItem(R.id.nav_ThemNgDung);
-//            item.setVisible(false);
-//        }
-//        return true;
-//    }
 }
