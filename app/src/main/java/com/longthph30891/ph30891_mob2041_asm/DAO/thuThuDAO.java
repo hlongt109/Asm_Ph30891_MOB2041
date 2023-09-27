@@ -65,7 +65,7 @@ public class thuThuDAO {
     }
 
     // check Account
-    public boolean checkThuThuExist(String username, String password){
+    public boolean checkThuThuAc(String username, String password){
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String query = "SELECT * FROM THUTHU WHERE MaTT = ? AND MatKhau = ?";
         String[] selectionArgs ={username,password};

@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 
 public class DbHelper extends SQLiteOpenHelper {
     private static final String nameDb="PNLIB";
-    static final int versionDb = 3;
+    static final int versionDb = 5;
     public DbHelper(@Nullable Context context) {
         super(context, nameDb, null, versionDb);
     }
@@ -38,6 +38,9 @@ public class DbHelper extends SQLiteOpenHelper {
                 "GiaThue INTEGER NOT NULL," +
                 "MaTheLoai REFERENCES LOAISACH (MaTheLoai))";
         db.execSQL(tableSach);
+        String dataS = "INSERT INTO SACH VALUES (1,'Lâp trình Android',10000,1)," +
+                " (2,'Từ điển tiếng anh',7000,2)";
+        db.execSQL(dataS);
         // bang phieu muon
         String tablePMuon = "CREATE TABLE PHIEUMUON (MaPhieu INTEGER PRIMARY KEY AUTOINCREMENT DEFAULT 1," +
                 "MaSach INTEGER REFERENCES SACH (MaSach)," +

@@ -13,6 +13,12 @@ public class Sach {
         this.giaThue = giaThue;
     }
 
+    public Sach(int maTheLoai, String tenSach, int giaThue) {
+        this.maTheLoai = maTheLoai;
+        this.tenSach = tenSach;
+        this.giaThue = giaThue;
+    }
+
     public Sach() {
     }
 

@@ -63,7 +63,7 @@ public class Login extends AppCompatActivity {
                     intent.putExtra("USERNAME", username);
                     startActivity(intent);
                     finish();
-                } else if (thuThuDAO.checkThuThuExist(username, password)) {
+                } else if (thuThuDAO.checkThuThuAc(username, password)) {
                     Toast.makeText(context, "Welcome "+username, Toast.LENGTH_SHORT).show();
                     rememberAcc(username, password, true);
                     Intent intent = new Intent(Login.this, MainActivity.class);
