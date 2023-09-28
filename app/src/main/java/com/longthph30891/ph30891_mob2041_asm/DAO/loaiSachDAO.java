@@ -61,25 +61,4 @@ public class loaiSachDAO {
         long row = db.delete("LOAISACH","MaTheLoai=?",new String[]{String.valueOf(id)});
         return (row > 0);
     }
-    // getAllTenLoai
-    public ArrayList<String> getAllTenLoai(){
-        ArrayList<String> listLs = new ArrayList<>();
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        try{
-            Cursor cursor = db.rawQuery("SELECT TenTheLoai FROM LOAISACH",null);
-            if(cursor.getCount()>0){
-                cursor.moveToFirst();
-                while (!cursor.isAfterLast()){
-                    @SuppressLint("Range") String tenTl = cursor.getString(cursor.getColumnIndex("TenTheLoai"));
-                    listLs.add(tenTl);
-                    cursor.moveToNext();
-                }
-            }
-            cursor.close(); // đóng con trỏ sau khi sử dụng
-        }catch (Exception e){
-            e.printStackTrace();
-
-        }
-        return listLs;
-    }
 }

@@ -22,7 +22,7 @@ public class LoaiSachSpinnerAdapter extends ArrayAdapter<LoaiSach> {
     TextView tvMaLoai, tvTenLoai;
 
     public LoaiSachSpinnerAdapter(@NonNull Context context, ArrayList<LoaiSach> list) {
-        super(context, 0, list);
+        super(context,0, list);
         this.context = context;
         this.list = list;
     }

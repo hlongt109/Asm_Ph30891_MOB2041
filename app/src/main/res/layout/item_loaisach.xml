@@ -10,8 +10,9 @@
         android:orientation="horizontal"
         android:background="@drawable/khung">
         <LinearLayout
-            android:layout_width="350dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="9"
             android:orientation="vertical">
            <LinearLayout
                android:layout_width="match_parent"

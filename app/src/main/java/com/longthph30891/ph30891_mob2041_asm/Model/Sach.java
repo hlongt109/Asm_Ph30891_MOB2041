@@ -13,10 +13,10 @@ public class Sach {
         this.giaThue = giaThue;
     }
 
-    public Sach(int maTheLoai, String tenSach, int giaThue) {
-        this.maTheLoai = maTheLoai;
+    public Sach( String tenSach, int giaThue,int maTheLoai) {
         this.tenSach = tenSach;
         this.giaThue = giaThue;
+        this.maTheLoai = maTheLoai;
     }
 
     public Sach() {

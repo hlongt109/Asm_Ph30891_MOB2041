@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,7 @@ public class AdapterSach extends RecyclerView.Adapter<AdapterSach.viewHolder> {
     private final Context context;
     private final ArrayList<Sach> list;
     LoaiSachSpinnerAdapter spinnerAdapter;
+    TheLoaiSachAdapter theLoaiSachAdapter;
     ArrayList<LoaiSach>listLs;
     loaiSachDAO lsDAO;
     LoaiSach loaiSach;
@@ -41,9 +43,9 @@ public class AdapterSach extends RecyclerView.Adapter<AdapterSach.viewHolder> {
     int matl;
     loaiSachDAO loaisDAO;
 
-    public AdapterSach(Context context, ArrayList<Sach> list) {
-        this.context = context;
+    public AdapterSach( ArrayList<Sach> list,Context context) {
         this.list = list;
+        this.context = context;
         sDAO = new sachDAO(context);
     }
 
@@ -59,13 +61,13 @@ public class AdapterSach extends RecyclerView.Adapter<AdapterSach.viewHolder> {
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         // truy cập đối tượng tại vtri position
-        Sach s = list.get(position);
+         Sach s = list.get(position);
         sDAO = new sachDAO(context);
         // hien thi du lieu len item
         holder.tvMaS.setText(String.valueOf(list.get(position).getMaSach()));
         holder.tvTenS.setText(list.get(position).getTenSach());
         holder.tvGiaS.setText(String.valueOf(list.get(position).getGiaThue()));
-        int maloaisach = s.getMaSach();   // Lấy mã loại sách từ đối tượng sách
+        int maloaisach = s.getMaTheLoai();   // Lấy mã loại sách từ đối tượng sách
         holder.tvLoaiS.setText(sDAO.getTenLoaiSach(maloaisach));
         // imgDelete
         holder.imgDelete.setOnClickListener(new View.OnClickListener() {
@@ -141,41 +143,68 @@ public class AdapterSach extends RecyclerView.Adapter<AdapterSach.viewHolder> {
         tvMaS.setText(String.valueOf(s.getMaSach()));
         edTenS.setText(s.getTenSach());
         edGiaS.setText(String.valueOf(s.getGiaThue()));
+
         // spinner
         listLs = new ArrayList<>();
         lsDAO = new loaiSachDAO(context);
-        listLs = (ArrayList<LoaiSach>)lsDAO.selectAll();
-        spinnerAdapter = new LoaiSachSpinnerAdapter(context,listLs);
-        spinnerLs.setAdapter(spinnerAdapter);
+        listLs = lsDAO.selectAll();
+        theLoaiSachAdapter = new TheLoaiSachAdapter(context,listLs);
+        spinnerLs.setAdapter(theLoaiSachAdapter);
         spinnerLs.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedItem = ((LoaiSach)spinnerLs.getItemAtPosition(position)).getTenTheLoai();
                 matl = listLs.get(position).getMaTheLoai();
+                Toast.makeText(context, "Chọn "+matl, Toast.LENGTH_SHORT).show();
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
         // btnUpdate
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               Sach s = new Sach();
-               s.setTenSach(edTenS.getText().toString());
-               s.setGiaThue(Integer.parseInt(edGiaS.getText().toString()));
-               s.setMaSach(matl);
-               if (sDAO.update(s)){
-                   list.clear();
-                   list.addAll(sDAO.selectAll());
-                   notifyDataSetChanged();
-                   Toast.makeText(context, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
-                   dialog.dismiss();
-               }else {
-                   Toast.makeText(context, "Lỗi cập nhật", Toast.LENGTH_SHORT).show();
-               }
+                //
+                String tenS = edTenS.getText().toString();
+                String giaS = edGiaS.getText().toString();
+                if(tenS.isEmpty()||giaS.isEmpty()){
+                    if (tenS.isEmpty()) {
+                        ilTenS.setError("Không để trống tên sách !");
+                    }else{
+                        ilTenS.setError(null);
+                    }
+                    if (giaS.isEmpty()) {
+                        ilGiaS.setError("Không để trống giá sách !");
+                    }else{
+                        ilGiaS.setError(null);
+                    }
+                }else{
+                    try {
+                        int money = Integer.parseInt(giaS);
+                        if (money <= 0){
+                            ilGiaS.setError("Giá phải lớn hơn 0");
+                            return;
+                        }
+                    }catch (NumberFormatException e){
+                        ilGiaS.setError("Giá phải là số!");
+                        return;
+                    }
+                    int ma = matl;
+                    int gia = Integer.parseInt(giaS);
+                    Log.d("AAA","Ma :"+ma);
+                    s.setTenSach(tenS);
+                    s.setGiaThue(gia);
+                    s.setMaTheLoai(ma);
+                    if (sDAO.update(s)){
+                        list.clear();
+                        list.addAll(sDAO.selectAll());
+                        notifyDataSetChanged();
+                        dialog.dismiss();
+                        Toast.makeText(context, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(context, "Lỗi cập nhật !", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
         // btnCancel
