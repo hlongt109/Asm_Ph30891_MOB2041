@@ -1,5 +1,6 @@
 package com.longthph30891.ph30891_mob2041_asm.DAO;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -73,5 +74,44 @@ public class phieuMuonDAO {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         long row = db.delete("PHIEUMUON","MaPhieu=?",new String[]{String.valueOf(id)});
         return (row > 0);
+    }
+    @SuppressLint("Range")
+    public String getTenSach(int maSach){
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String tenSach = "";
+        String query = "SELECT TenSach FROM SACH WHERE MaSach = ?";
+        String[] selctionArgs = {String.valueOf(maSach)};
+        Cursor cursor = db.rawQuery(query,selctionArgs);
+        if(cursor.moveToFirst()){
+            tenSach = cursor.getString(cursor.getColumnIndex("TenSach"));
+        }
+        cursor.close();db.close();
+        return  tenSach;
+    }
+    @SuppressLint("Range")
+    public int getGiaTien(int maSach){
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        int giaTien = 0;
+        String query = "SELECT GiaThue FROM SACH WHERE MaSach = ?";
+        String[] selctionArgs = {String.valueOf(maSach)};
+        Cursor cursor = db.rawQuery(query,selctionArgs);
+        if(cursor.moveToFirst()){
+            giaTien = Integer.parseInt(cursor.getString(cursor.getColumnIndex("GiaThue")));
+        }
+        cursor.close();db.close();
+        return  giaTien;
+    }
+    @SuppressLint("Range")
+    public String getTenThanhVien(int maTvien){
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String TenTv = "";
+        String query = "SELECT HoTenTV FROM THANHVIEN WHERE MaTV = ?";
+        String[] selctionArgs = {String.valueOf(maTvien)};
+        Cursor cursor = db.rawQuery(query,selctionArgs);
+        if(cursor.moveToFirst()){
+            TenTv = cursor.getString(cursor.getColumnIndex("HoTenTV"));
+        }
+        cursor.close();db.close();
+        return  TenTv;
     }
 }

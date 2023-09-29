@@ -42,7 +42,6 @@ public class thanhVienDAO {
     public boolean insert(ThanhVien tv){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("MaTV",tv.getMaTV());
         values.put("HoTenTV",tv.getHoTenTV());
         values.put("NamSinh",tv.getNamSinh());
         long row = db.insert("THANHVIEN",null,values);

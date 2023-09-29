@@ -2,6 +2,7 @@ package com.longthph30891.ph30891_mob2041_asm.Adapter;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
@@ -15,6 +16,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.longthph30891.ph30891_mob2041_asm.DAO.thanhVienDAO;
 import com.longthph30891.ph30891_mob2041_asm.Model.ThanhVien;
 import com.longthph30891.ph30891_mob2041_asm.R;
@@ -101,6 +104,60 @@ public class AdapterThanhVien extends RecyclerView.Adapter<AdapterThanhVien.view
     }
 
     private void OnpenDiaLogUpdate(ThanhVien tv) {
-
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+        View view = inflater.inflate(R.layout.update_tv_layout,null);
+        builder.setView(view);
+        Dialog dialog = builder.create();
+        dialog.show();
+        //
+        TextView tvMa = view.findViewById(R.id.tvMaTV_up);
+        TextInputLayout ilTenTv = view.findViewById(R.id.ilTenTV_up);
+        TextInputLayout ilNamSinh = view.findViewById(R.id.ilNamSinhTV_up);
+        TextInputEditText edTentv = view.findViewById(R.id.edTenTV_up);
+        TextInputEditText edNamStv = view.findViewById(R.id.edNamSinhTV_up);
+        Button btnUpdate = view.findViewById(R.id.btnUpdate_TV_up);
+        Button btnCancel = view.findViewById(R.id.btnCancel_TV_up);
+        //
+        tvMa.setText(String.valueOf(tv.getMaTV()));
+        edTentv.setText(tv.getHoTenTV());
+        edNamStv.setText(tv.getNamSinh());
+        //
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String tenTv = edTentv.getText().toString();
+                String namS = edNamStv.getText().toString();
+                if(tenTv.isEmpty()||namS.isEmpty()){
+                    if (tenTv.isEmpty()){
+                        ilTenTv.setError("Vui lòng nhập tên thành viên");
+                    }else {
+                        ilTenTv.setError(null);
+                    }
+                    if (namS.isEmpty()){
+                        ilNamSinh.setError("Vui lòng nhập năm sinh");
+                    }else {
+                        ilNamSinh.setError(null);
+                    }
+                }else {
+                    tv.setHoTenTV(tenTv); tv.setNamSinh(namS);
+                    if (tvDAO.update(tv)){
+                        list.clear();
+                        list.addAll(tvDAO.selectAll());
+                        notifyDataSetChanged();
+                        dialog.dismiss();
+                        Toast.makeText(context, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(context, "Lỗi cập nhật!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
     }
 }

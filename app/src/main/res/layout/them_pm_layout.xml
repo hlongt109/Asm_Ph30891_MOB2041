@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginVertical="20dp"
         android:gravity="center"
-        android:text="Cập phiếu mượn"
+        android:text="Thêm phiếu mượn"
         android:textColor="#0E0E0E"
         android:textSize="30dp"
         android:textStyle="bold" />

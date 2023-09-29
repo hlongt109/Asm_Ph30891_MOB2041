@@ -8,7 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Loai Sach"
+        android:text="0"
         android:paddingVertical="5dp"
         android:paddingHorizontal="5dp"/>
     <TextView
@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="left"
-        android:text="Loai Sach"
+        android:text="abc"
         android:paddingLeft="10dp"
         android:paddingVertical="5dp"/>
 

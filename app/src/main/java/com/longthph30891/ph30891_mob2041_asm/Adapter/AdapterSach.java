@@ -33,16 +33,11 @@ import java.util.ArrayList;
 public class AdapterSach extends RecyclerView.Adapter<AdapterSach.viewHolder> {
     private final Context context;
     private final ArrayList<Sach> list;
-    LoaiSachSpinnerAdapter spinnerAdapter;
     TheLoaiSachAdapter theLoaiSachAdapter;
     ArrayList<LoaiSach>listLs;
     loaiSachDAO lsDAO;
-    LoaiSach loaiSach;
     sachDAO sDAO;
-    String selectedItem = "";
     int matl;
-    loaiSachDAO loaisDAO;
-
     public AdapterSach( ArrayList<Sach> list,Context context) {
         this.list = list;
         this.context = context;
@@ -154,7 +149,6 @@ public class AdapterSach extends RecyclerView.Adapter<AdapterSach.viewHolder> {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 matl = listLs.get(position).getMaTheLoai();
-                Toast.makeText(context, "Chọn "+matl, Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
