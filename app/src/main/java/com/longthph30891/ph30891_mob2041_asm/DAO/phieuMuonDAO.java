@@ -46,12 +46,11 @@ public class phieuMuonDAO {
     public boolean insert(PhieuMuon pm){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("MaPhieu",pm.getMaPhieu());
         values.put("MaSach",pm.getMaSach());
         values.put("MaTT",pm.getMaTT());
         values.put("MaTV",pm.getMaTV());
-        values.put("TienThue",pm.getTienThue());
         values.put("NgayMuon",pm.getNgayMuon());
+        values.put("TienThue",pm.getTienThue());
         values.put("TrangThai",pm.getTrangThai());
         long row = db.insert("PHIEUMUON",null,values);
         return (row > 0);
@@ -66,13 +65,13 @@ public class phieuMuonDAO {
         values.put("TienThue",pm.getTienThue());
         values.put("NgayMuon",pm.getNgayMuon());
         values.put("TrangThai",pm.getTrangThai());
-        long row = db.update("PHIEMUON",values,"MaPhieu=?",new String[]{String.valueOf(pm.getMaPhieu())});
+        long row = db.update("PHIEUMUON",values,"MaPhieu =?",new String[]{String.valueOf(pm.getMaPhieu())});
         return (row > 0);
     }
     // delete
     public boolean delete(int id){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        long row = db.delete("PHIEUMUON","MaPhieu=?",new String[]{String.valueOf(id)});
+        long row = db.delete("PHIEUMUON","MaPhieu =?",new String[]{String.valueOf(id)});
         return (row > 0);
     }
     @SuppressLint("Range")
@@ -113,5 +112,23 @@ public class phieuMuonDAO {
         }
         cursor.close();db.close();
         return  TenTv;
+    }
+    @SuppressLint("Range")
+    public String getTenThuThu(String maThuthu){
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String tenTT = "";
+        if(maThuthu.equals("admin")){
+            tenTT = "admin";
+        }else {
+            String query = "SELECT HoTenTT FROM THUTHU WHERE MaTT = ?";
+            String[] selctionArgs = {maThuthu};
+            Cursor cursor = db.rawQuery(query,selctionArgs);
+            if(cursor.moveToFirst()){
+                tenTT = cursor.getString(cursor.getColumnIndex("HoTenTT"));
+            }
+            cursor.close();
+        }
+        db.close();
+        return  tenTT;
     }
 }

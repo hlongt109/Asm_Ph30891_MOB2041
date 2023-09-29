@@ -22,18 +22,17 @@ public class thongKeDAO {
     public  ArrayList<Top> getTop10(){
         ArrayList<Top> list = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String query = "SELECT SACH.TenSach ,COUNT(PHIEUMUON.MaSach)  FROM SACH LEFT JOIN PHIEUMUON ON SACH.MaSach = PHIEUMUON. MaSach GROUP BY SACH.TenSach ORDER BY soLuot DESC LIMIT 10";
+        String query = "SELECT SACH.TenSach ,COUNT(PHIEUMUON.MaSach)  FROM SACH LEFT JOIN PHIEUMUON ON SACH.MaSach = PHIEUMUON. MaSach GROUP BY SACH.TenSach ORDER BY COUNT(PHIEUMUON.MaSach) DESC LIMIT 10";
         Cursor cursor = db.rawQuery(query,null);
-        if(cursor.getCount() > 0) {
-            cursor.moveToFirst();
-            while (!cursor.moveToNext()) {
+        if (cursor.moveToFirst()) { // Bắt đầu từ dòng đầu tiên của kết quả
+            do {
                 Top top = new Top();
                 top.tenSach = cursor.getString(0);
                 top.soLuong = cursor.getInt(1);
                 list.add(top);
-                cursor.moveToNext();
-            }
+            } while (cursor.moveToNext()); // Di chuyển đến dòng tiếp theo của kết quả
         }
+        cursor.close();db.close();
         return list;
     }
     // thong ke doanh thu

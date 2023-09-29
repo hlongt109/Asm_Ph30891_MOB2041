@@ -22,6 +22,15 @@ public class PhieuMuon {
     public PhieuMuon() {
     }
 
+    public PhieuMuon(int maSach, String maTT, int maTV, int tienThue, String ngayMuon, int trangThai) {
+        this.maSach = maSach;
+        this.maTT = maTT;
+        this.maTV = maTV;
+        this.tienThue = tienThue;
+        this.ngayMuon = ngayMuon;
+        this.trangThai = trangThai;
+    }
+
     public int getMaPhieu() {
         return maPhieu;
     }

@@ -1,5 +1,6 @@
 package com.longthph30891.ph30891_mob2041_asm.Adapter;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -61,18 +62,21 @@ public class AdapterPhieuMuon extends RecyclerView.Adapter<AdapterPhieuMuon.view
         PhieuMuon pm = list.get(position);
         // hien thi du lieu len view
         holder.tvMaPhieu.setText(String.valueOf(list.get(position).getMaPhieu()));
+        String maThuThu = pm.getMaTT();
+        holder.tvThuthu.setText(pmDAO.getTenThuThu(maThuThu));
         int maThanhV = pm.getMaTV();
         holder.tvThanhVien.setText(pmDAO.getTenThanhVien(maThanhV));
         int maSach = pm.getMaSach();
         holder.tvTenSach.setText(pmDAO.getTenSach(maSach));
         holder.tvTienThue.setText(String.valueOf(pmDAO.getGiaTien(maSach)));
         holder.tvNgayThue.setText(list.get(position).getNgayMuon());
-        if (list.get(position).getTrangThai() ==1){
+        if (list.get(position).getTrangThai() == 1) {
             holder.tvTrangThai.setText("Đã trả");
-            holder.tvTrangThai.setTextColor(ContextCompat.getColor(context,R.color.trangThai));
-        }else {
-            holder.tvTrangThai.setText("Chưa trả");
+            holder.tvTrangThai.setTextColor(ContextCompat.getColor(context, R.color.trangThai));
         }
+//        else {
+//            holder.tvTrangThai.setText("Chưa trả");
+//        }
 
         //
         holder.imgDelete.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +94,7 @@ public class AdapterPhieuMuon extends RecyclerView.Adapter<AdapterPhieuMuon.view
                             list.clear();
                             list.addAll(pmDAO.selectAll());
                             notifyDataSetChanged();
+                            dialog.dismiss();
                             Toast.makeText(context, "Xóa thành công", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(context, "Lỗi xóa", Toast.LENGTH_SHORT).show();
@@ -108,7 +113,7 @@ public class AdapterPhieuMuon extends RecyclerView.Adapter<AdapterPhieuMuon.view
             }
         });
     }
-
+    @SuppressLint("MissingInflatedId")
     private void openDiaLogUpdate(PhieuMuon pm) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
@@ -120,6 +125,7 @@ public class AdapterPhieuMuon extends RecyclerView.Adapter<AdapterPhieuMuon.view
         TextView tvMaPhieu = view.findViewById(R.id.tvMaPM_up);
         Spinner spTenTV = view.findViewById(R.id.sp_TenTv_Pm_up);
         Spinner spTenSach = view.findViewById(R.id.sp_TenS_Pm_up);
+        TextView tvThuthu = view.findViewById(R.id.tvThuThu_up);
         TextView tvTienThue = view.findViewById(R.id.tvTienPM_up);
         TextView tvNgayThue = view.findViewById(R.id.tvNgayPM_up);
         CheckBox chkTrThai = view.findViewById(R.id.chkTrangThai_Pm_up);
@@ -127,6 +133,8 @@ public class AdapterPhieuMuon extends RecyclerView.Adapter<AdapterPhieuMuon.view
         Button btnCancel = view.findViewById(R.id.btnCancel_Pm_Up);
         // hien thi du lieu len dialog
         tvMaPhieu.setText(String.valueOf(pm.getMaPhieu()));
+        String tentt = pm.getMaTT();
+        tvThuthu.setText(pmDAO.getTenThuThu(tentt));
         tvTienThue.setText(String.valueOf(pm.getTienThue()));
         tvNgayThue.setText(pm.getNgayMuon());
         chkTrThai.setChecked(Boolean.parseBoolean(String.valueOf(pm.getTrangThai())));
@@ -144,7 +152,6 @@ public class AdapterPhieuMuon extends RecyclerView.Adapter<AdapterPhieuMuon.view
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
         //
@@ -158,10 +165,8 @@ public class AdapterPhieuMuon extends RecyclerView.Adapter<AdapterPhieuMuon.view
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 maS = listSach.get(position).getMaSach();
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
         //
@@ -174,25 +179,40 @@ public class AdapterPhieuMuon extends RecyclerView.Adapter<AdapterPhieuMuon.view
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                int status;
+                pm.setMaTV(maTv);
+                pm.setMaSach(maS);
+                if (chkTrThai.isChecked()) {
+                    status = 1;
+                    pm.setTrangThai(status);
+                } else {
+                    status = 0;
+                    pm.setTrangThai(status);
+                }
+                if(pmDAO.update(pm)){
+                    list.clear();
+                    list.addAll(pmDAO.selectAll());
+                    notifyDataSetChanged();
+                    Toast.makeText(context, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(context, "Lỗi cập nhật", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
-
     @Override
     public int getItemCount() {
         return list.size();
     }
-
     public static class viewHolder extends RecyclerView.ViewHolder {
-        TextView tvMaPhieu, tvThanhVien, tvTenSach, tvTienThue, tvNgayThue, tvTrangThai;
+        TextView tvMaPhieu, tvThanhVien,tvThuthu, tvTenSach, tvTienThue, tvNgayThue, tvTrangThai;
         ImageButton imgDelete;
-
         public viewHolder(@NonNull View itemView) {
             super(itemView);
             tvMaPhieu = itemView.findViewById(R.id.tvMaPM_itPm);
             tvThanhVien = itemView.findViewById(R.id.tvThanhVien_itPm);
             tvTenSach = itemView.findViewById(R.id.tvTenSach_itPm);
+            tvThuthu = itemView.findViewById(R.id.tvThuThu_itPm);
             tvTienThue = itemView.findViewById(R.id.tvTienThue_itPm);
             tvNgayThue = itemView.findViewById(R.id.tvNgayThue_itPm);
             tvTrangThai = itemView.findViewById(R.id.tvTrangThai_itPm);

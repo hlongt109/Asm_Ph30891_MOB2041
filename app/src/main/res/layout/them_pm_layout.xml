@@ -18,6 +18,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:orientation="horizontal">
         <TextView
             android:layout_width="wrap_content"
@@ -29,10 +30,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
-            android:text="0"
+            android:text=""
             android:textSize="18dp" />
     </LinearLayout>
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thủ Thư :"
+            android:textSize="19dp" />
+        <TextView
+            android:id="@+id/tvThuThu_them"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:text=""
+            android:textSize="18dp" />
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -86,7 +103,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
-            android:text="0"
+            android:text=""
             android:textSize="18dp" />
     </LinearLayout>
     <LinearLayout
@@ -104,7 +121,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
             android:textStyle="italic"
-            android:text="0"
+            android:text=""
             android:textSize="18dp" />
     </LinearLayout>
     <CheckBox
