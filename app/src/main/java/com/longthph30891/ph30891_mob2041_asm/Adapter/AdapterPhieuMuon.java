@@ -193,6 +193,7 @@ public class AdapterPhieuMuon extends RecyclerView.Adapter<AdapterPhieuMuon.view
                     list.clear();
                     list.addAll(pmDAO.selectAll());
                     notifyDataSetChanged();
+                    dialog.dismiss();
                     Toast.makeText(context, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(context, "Lỗi cập nhật", Toast.LENGTH_SHORT).show();

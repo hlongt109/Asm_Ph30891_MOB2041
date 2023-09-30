@@ -1,5 +1,6 @@
 package com.longthph30891.ph30891_mob2041_asm.DAO;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -36,19 +37,21 @@ public class thongKeDAO {
         return list;
     }
     // thong ke doanh thu
-    public int getDoanhThu(String dayStart, String dayEnd){
+    @SuppressLint("Range")
+    public String getDoanhThu(String dayStart, String dayEnd){
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String query = "SELECT SUM(TienThue)  FROM PHIEUMUON WHERE NgayMuon BETWEEN ? AND ?";
-        ArrayList<Integer> list = new ArrayList<>();
+        String query = "SELECT SUM(TienThue) AS totalDoanhThu  FROM PHIEUMUON WHERE NgayMuon BETWEEN ? AND ?";
         Cursor cursor = db.rawQuery(query,new String[]{dayStart,dayEnd});
-        while (cursor.moveToNext()){
-            try {
-                int doanhThu = cursor.getInt(0);
-                list.add(doanhThu);
-            }catch (Exception e){
-                list.add(0);
-            }
+        if(cursor.moveToFirst()){
+            int doanhThu = cursor.getInt(cursor.getColumnIndex("totalDoanhThu"));
+            cursor.close();
+            db.close();
+            return "Doanh thu : " + doanhThu;
+        }else {
+            cursor.close();
+            db.close();
+            return "Không có khoản thu";
         }
-        return list.get(0);
+
     }
 }
