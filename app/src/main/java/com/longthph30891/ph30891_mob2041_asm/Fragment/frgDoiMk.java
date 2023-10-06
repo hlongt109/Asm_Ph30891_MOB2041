@@ -1,6 +1,4 @@
 package com.longthph30891.ph30891_mob2041_asm.Fragment;
-
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -16,14 +14,9 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.longthph30891.ph30891_mob2041_asm.DAO.AdminDAO;
 import com.longthph30891.ph30891_mob2041_asm.DAO.thuThuDAO;
-import com.longthph30891.ph30891_mob2041_asm.Database.DbHelper;
 import com.longthph30891.ph30891_mob2041_asm.Model.ThuThu;
 import com.longthph30891.ph30891_mob2041_asm.R;
-
-import java.util.ArrayList;
-
 public class frgDoiMk extends Fragment {
     public frgDoiMk() {
         // Required empty public constructor

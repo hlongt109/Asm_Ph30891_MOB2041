@@ -86,7 +86,7 @@
                 android:layout_gravity="start"
                 android:layout_marginRight="40dp"
                 android:layout_weight="1"
-                android:backgroundTint="#4CAF50"
+                android:backgroundTint="#82B843"
                 android:text="Save" />
 
             <Button
@@ -95,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40dp"
                 android:layout_weight="1"
-                android:backgroundTint="#F16134"
+                android:backgroundTint="#705957"
                 android:text="Cancel" />
         </LinearLayout>
     </LinearLayout>

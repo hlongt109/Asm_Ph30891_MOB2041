@@ -22,7 +22,6 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.longthph30891.ph30891_mob2041_asm.Adapter.AdapterLoaiSach;
 import com.longthph30891.ph30891_mob2041_asm.Adapter.AdapterSach;
 import com.longthph30891.ph30891_mob2041_asm.Adapter.TheLoaiSachAdapter;
 import com.longthph30891.ph30891_mob2041_asm.DAO.loaiSachDAO;

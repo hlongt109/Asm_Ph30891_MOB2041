@@ -32,6 +32,7 @@ public class PhieuMuon {
     }
 
     public int getMaPhieu() {
+
         return maPhieu;
     }
 

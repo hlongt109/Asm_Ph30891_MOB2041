@@ -7,7 +7,6 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,13 +25,9 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class frgDoanhThu extends Fragment {
-
     public frgDoanhThu() {
 
     }
-
-
-
    thongKeDAO tkDAO;
     @SuppressLint("MissingInflatedId")
     @Override
@@ -59,7 +54,9 @@ public class frgDoanhThu extends Fragment {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        edDayStart.setText(dayOfMonth +"/"+(month+1)+"/"+year);
+                        String formattedDay = String.format("%02d", dayOfMonth);
+                        String formattedMonth = String.format("%02d", month + 1);
+                        edDayStart.setText(formattedDay +"/"+formattedMonth+"/"+year);
                     }
                 },year,month,day);
                 datePickerDialog.show();
@@ -75,7 +72,11 @@ public class frgDoanhThu extends Fragment {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        edDayTo.setText(dayOfMonth +"/"+(month+1)+"/"+year);
+                        // Định dạng ngày và tháng thành hai chữ số
+                        String formattedDay = String.format("%02d", dayOfMonth);
+                        String formattedMonth = String.format("%02d", month + 1);
+
+                        edDayTo.setText(formattedDay +"/"+formattedMonth+"/"+year);
                     }
                 },year,month,day);
                 datePickerDialog.show();
@@ -84,7 +85,7 @@ public class frgDoanhThu extends Fragment {
         btnXemDthu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tkDAO = new thongKeDAO(getContext());
+                tkDAO = new thongKeDAO(getActivity());
                 String ngayBatDau = edDayStart.getText().toString();
                 String ngayToi = edDayTo.getText().toString();
                 //

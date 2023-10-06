@@ -79,7 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="100dp"
             android:text="Update"
-            android:backgroundTint="#4CAF50"
+            android:backgroundTint="#82B843"
             android:id="@+id/btnUpdate_S_up"/>
         <Button
             android:layout_width="wrap_content"

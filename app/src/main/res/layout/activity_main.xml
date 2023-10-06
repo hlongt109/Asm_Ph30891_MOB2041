@@ -14,11 +14,11 @@
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/ThemeOverlay.AppCompat.Light">
+            android:theme="@style/ThemeOverlay.AppCompat.Dark">
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#606568"
+                android:background="#3c3934"
                 app:titleTextColor="#fff"
                 android:id="@+id/toolbar1"
                 android:minHeight="?attr/actionBarSize"/>

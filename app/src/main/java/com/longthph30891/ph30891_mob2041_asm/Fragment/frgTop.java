@@ -14,8 +14,6 @@ import com.longthph30891.ph30891_mob2041_asm.Adapter.AdapterTop;
 import com.longthph30891.ph30891_mob2041_asm.DAO.thongKeDAO;
 import com.longthph30891.ph30891_mob2041_asm.Model.Top;
 import com.longthph30891.ph30891_mob2041_asm.R;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class frgTop extends Fragment {

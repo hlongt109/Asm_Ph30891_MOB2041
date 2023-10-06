@@ -141,6 +141,7 @@ public class frgQLyPhieuMuon extends Fragment {
                 String maThuThu = matt();
                 int tienThue = pmDAO.getGiaTien(maS);
                 int status = trangThai(chkTrThai);
+                Log.d("Testpm","TienThue : "+tienThue);
                 Log.d("Testpm","mas"+maS + " maThuThu"+maThuThu + " maTv"+maTv +" ngay"+currentDate + " trangThai"+status);
                 PhieuMuon phieuM = new PhieuMuon(maS,maThuThu,maTv,tienThue,currentDate,status);
                 if (pmDAO.insert(phieuM)){
@@ -166,5 +167,9 @@ public class frgQLyPhieuMuon extends Fragment {
         Intent intent = getActivity().getIntent();
         String maThuT = intent.getStringExtra("USERNAME");
         return maThuT;
+    }
+    public int gia (int ma){
+        int giaTien = pmDAO.getGiaTien(ma);
+        return giaTien;
     }
 }
