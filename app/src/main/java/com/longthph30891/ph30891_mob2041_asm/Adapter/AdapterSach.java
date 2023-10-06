@@ -138,6 +138,7 @@ public class AdapterSach extends RecyclerView.Adapter<AdapterSach.viewHolder> {
         tvMaS.setText(String.valueOf(s.getMaSach()));
         edTenS.setText(s.getTenSach());
         edGiaS.setText(String.valueOf(s.getGiaThue()));
+        int currentMaLs = s.getMaTheLoai();
 
         // spinner
         listLs = new ArrayList<>();
@@ -145,6 +146,13 @@ public class AdapterSach extends RecyclerView.Adapter<AdapterSach.viewHolder> {
         listLs = lsDAO.selectAll();
         theLoaiSachAdapter = new TheLoaiSachAdapter(context,listLs);
         spinnerLs.setAdapter(theLoaiSachAdapter);
+        for (int i = 0; i < listLs.size(); i++) {
+            if (listLs.get(i).getMaTheLoai() == currentMaLs) {
+                spinnerLs.setSelection(i);
+                matl = currentMaLs;
+                break;
+            }
+        }
         spinnerLs.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

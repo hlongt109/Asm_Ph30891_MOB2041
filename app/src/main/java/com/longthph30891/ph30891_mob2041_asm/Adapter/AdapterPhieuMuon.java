@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -137,13 +138,25 @@ public class AdapterPhieuMuon extends RecyclerView.Adapter<AdapterPhieuMuon.view
         tvThuthu.setText(pmDAO.getTenThuThu(tentt));
         tvTienThue.setText(String.valueOf(pm.getTienThue()));
         tvNgayThue.setText(pm.getNgayMuon());
-        chkTrThai.setChecked(Boolean.parseBoolean(String.valueOf(pm.getTrangThai())));
+        if (pm.getTrangThai() == 1) {
+            chkTrThai.setChecked(true);
+        }
+        int currentMaTv = pm.getMaTV();
+        int currentMaSach = pm.getMaSach();
+
         // spinner
         listTv = new ArrayList<>();
         tvDAO = new thanhVienDAO(context);
         listTv = tvDAO.selectAll();
         spinnerTenTvAdapter = new SpinnerTenTvAdapter(context, listTv);
         spTenTV.setAdapter(spinnerTenTvAdapter);
+        for (int i = 0; i < listTv.size(); i++) {
+            if (listTv.get(i).getMaTV() == currentMaTv) {
+                spTenTV.setSelection(i);
+                maTv = currentMaSach;
+                break;
+            }
+        }
         spTenTV.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -160,13 +173,22 @@ public class AdapterPhieuMuon extends RecyclerView.Adapter<AdapterPhieuMuon.view
         listSach = sDAO.selectAll();
         spinnerTenSachAdapter = new SpinnerTenSachAdapter(context, listSach);
         spTenSach.setAdapter(spinnerTenSachAdapter);
+        for (int i = 0; i < listSach.size(); i++) {
+            if (listSach.get(i).getMaSach() == currentMaSach) {
+                spTenSach.setSelection(i);
+                maS = currentMaSach;
+                break;
+            }
+        }
         spTenSach.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                maS = listSach.get(position).getMaSach();
+                    maS = listSach.get(position).getMaSach();
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
         //

@@ -1,11 +1,13 @@
 package com.longthph30891.ph30891_mob2041_asm.Fragment;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +34,7 @@ public class frgDoanhThu extends Fragment {
 
 
    thongKeDAO tkDAO;
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -85,26 +88,29 @@ public class frgDoanhThu extends Fragment {
                 String ngayBatDau = edDayStart.getText().toString();
                 String ngayToi = edDayTo.getText().toString();
                 //
-                checkDay(ngayBatDau,ngayToi,edDayStart,edDayTo);
-                tvDoanhthu.setText(tkDAO.getDoanhThu(ngayBatDau,ngayToi));
+                if (checkDay(ngayBatDau,ngayToi,edDayStart,edDayTo)){
+                    int doanhThu = tkDAO.getDoanhThu(ngayBatDau,ngayToi);
+                    tvDoanhthu.setText(String.valueOf(doanhThu));
+                }else {
+                    tvDoanhthu.setText("");
+                }
             }
         });
         return view;
     }
-    public void checkDay(String dayS , String dayT,EditText editText1,EditText editText2){
+    public boolean checkDay(String dayS , String dayT,EditText editText1,EditText editText2){
         if(TextUtils.isEmpty(dayS)|| TextUtils.isEmpty(dayT)){
             if (TextUtils.isEmpty(dayS)){
                 editText1.setError("Vui lòng nhập ngày bắt đầu");
-                return;
             }else{
                 editText1.setError(null);
             }
             if (TextUtils.isEmpty(dayT)){
-                editText2.setError("Vui lòng nhập ngày kiểm tra đến");
-                return;
+                editText2.setError("Vui lòng nhập ngày kiểm tra");
             }else{
                 editText2.setError(null);
             }
+            return false;
         }
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         try {
@@ -112,26 +118,29 @@ public class frgDoanhThu extends Fragment {
             Date startDate = sdf.parse(dayS);
             Date endDate = sdf.parse(dayT);
             Date curentDate = new Date(); // ngày hiện tai
-            if(startDate.after(curentDate) || endDate.after(curentDate)){
+            if(startDate.after(curentDate) || endDate.after(curentDate) ||startDate.after(endDate)){
                 if(startDate.after(curentDate)){
-                    editText1.setError("Ngày không hợp lệ");
-                    return;
+                    editText1.setError("Không được lớn hơn ngày hiện tại");
                 }else {
                     editText1.setError(null);
                 }
                 if(endDate.after(curentDate)){
-                    editText2.setError("Ngày không hợp lệ");
-                    return;
+                    editText2.setError("Không được lớn hơn ngày hiện tại");
                 }else {
                     editText2.setError(null);
                 }
-            }else if (startDate.after(endDate)){
-                editText1.setError("Ngày bắt đầu không thể sau ngày kết thúc");
-                return;
+                if(startDate.after(endDate)){
+                    editText1.setError("Ngày bắt đầu không thể lớn hơn ngày đến");
+                }else {
+                    editText1.setError(null);
+                }
+                return false;
             }
         } catch (ParseException e) {
             e.printStackTrace();
             Toast.makeText(getContext(), "Lỗi xử lý ngày tháng", Toast.LENGTH_SHORT).show();
+            return false;
         }
+        return true;
     }
 }

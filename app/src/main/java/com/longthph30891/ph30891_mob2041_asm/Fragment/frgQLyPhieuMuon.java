@@ -136,7 +136,7 @@ public class frgQLyPhieuMuon extends Fragment {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 String currentDate = sdf.format(new Date());
                 String maThuThu = matt();
                 int tienThue = pmDAO.getGiaTien(maS);

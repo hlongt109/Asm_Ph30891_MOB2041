@@ -4,21 +4,23 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.longthph30891.ph30891_mob2041_asm.Database.DbHelper;
 import com.longthph30891.ph30891_mob2041_asm.Model.Sach;
 import com.longthph30891.ph30891_mob2041_asm.Model.Top;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class thongKeDAO {
     private final DbHelper dbHelper;
     public thongKeDAO(Context context) {
         dbHelper = new DbHelper(context);
     }
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
     // thong ke top 10
     public  ArrayList<Top> getTop10(){
         ArrayList<Top> list = new ArrayList<>();
@@ -37,21 +39,20 @@ public class thongKeDAO {
         return list;
     }
     // thong ke doanh thu
-    @SuppressLint("Range")
-    public String getDoanhThu(String dayStart, String dayEnd){
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String query = "SELECT SUM(TienThue) AS totalDoanhThu  FROM PHIEUMUON WHERE NgayMuon BETWEEN ? AND ?";
-        Cursor cursor = db.rawQuery(query,new String[]{dayStart,dayEnd});
-        if(cursor.moveToFirst()){
-            int doanhThu = cursor.getInt(cursor.getColumnIndex("totalDoanhThu"));
-            cursor.close();
-            db.close();
-            return "Doanh thu : " + doanhThu;
-        }else {
-            cursor.close();
-            db.close();
-            return "Không có khoản thu";
-        }
 
+    @SuppressLint("Range")
+    public int getDoanhThu(String dayStart, String dayEnd) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String query = "SELECT SUM(TienThue) AS TongTien FROM PHIEUMUON WHERE NgayMuon BETWEEN ? AND ?";
+        String[] selectionArgs = {dayStart, dayEnd};
+        int tongTien = 0;
+        Cursor cursor = db.rawQuery(query, selectionArgs);
+        if (cursor.moveToFirst()) {
+            tongTien = cursor.getInt(cursor.getColumnIndex("TongTien"));
+            Log.d("DAO", "doanh thu: " + tongTien);
+        }
+        cursor.close();
+        db.close();
+        return tongTien;
     }
 }

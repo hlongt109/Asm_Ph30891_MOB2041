@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 
 public class DbHelper extends SQLiteOpenHelper {
     private static final String nameDb="PNLIB";
-    static final int versionDb = 7;
+    static final int versionDb = 8;
     public DbHelper(@Nullable Context context) {
         super(context, nameDb, null, versionDb);
     }
@@ -21,11 +21,6 @@ public class DbHelper extends SQLiteOpenHelper {
                 "HoTenTV TEXT NOT NULL," +
                 "NamSinh TEXT NOT NULL)";
         db.execSQL(tableTv);
-        //
-        String dataTv = "INSERT INTO THANHVIEN VALUES (1,'Long Hoàng','2004')," +
-                " (2,'Duy Phong','2004')," +
-                " (3,'Thien Thien','2004')";
-        db.execSQL(dataTv);
         // bảng thu thu
         String tableThuthu = "CREATE TABLE THUTHU (MaTT TEXT PRIMARY KEY," +
                 "HoTenTT TEXT NOT NULL," +
@@ -38,21 +33,12 @@ public class DbHelper extends SQLiteOpenHelper {
         String tableTLoaiSach = "CREATE TABLE LOAISACH (MaTheLoai INTEGER PRIMARY KEY AUTOINCREMENT DEFAULT 1," +
                 "TenTheLoai TEXT NOT NULL)";
         db.execSQL(tableTLoaiSach);
-        //
-        String datals = "INSERT INTO LOAISACH VALUES(1,'CNTT')," +
-                "(2,'Marketing')," +
-                "(3,'Truyện')";
-        db.execSQL(datals);
         // bang sach
         String tableSach = "CREATE TABLE SACH (MaSach INTEGER PRIMARY KEY AUTOINCREMENT DEFAULT 1," +
                 "TenSach TEXT NOT NULL," +
                 "GiaThue INTEGER NOT NULL," +
                 "MaTheLoai INTEGER REFERENCES LOAISACH (MaTheLoai))";
         db.execSQL(tableSach);
-        String dataS = "INSERT INTO SACH VALUES (1,'Lâp trình Android',15000,1)," +
-                " (2,'Từ điển tiếng anh',5000,2)," +
-                "(3,'Lập trình php',8000,3)";
-        db.execSQL(dataS);
         // bang phieu muon
         String tablePMuon = "CREATE TABLE PHIEUMUON (MaPhieu INTEGER PRIMARY KEY AUTOINCREMENT DEFAULT 1," +
                 "MaSach INTEGER REFERENCES SACH (MaSach)," +
@@ -62,10 +48,6 @@ public class DbHelper extends SQLiteOpenHelper {
                 "NgayMuon TEXT NOT NULL," +
                 "TrangThai INTEGER NOT NULL)";
         db.execSQL(tablePMuon);
-        //
-        String dataPMuon = "INSERT INTO PHIEUMUON VALUES (1,1,'TT01',1,15000,'10/10/2023',1)," +
-                "(2,2,'TT01',2,5000,'10/10/2023',0)";
-        db.execSQL(dataPMuon);
         // admin
         String admin = "CREATE TABLE ADMIN (USERNAME TEXT PRIMARY KEY, PASSWORD TEXT)";
         db.execSQL(admin);
