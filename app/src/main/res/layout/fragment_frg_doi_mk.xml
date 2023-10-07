@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginLeft="40dp"
-                android:backgroundTint="#705957"
+                android:backgroundTint="#484036"
                 android:text="Cancel" />
         </LinearLayout>
     </LinearLayout>
