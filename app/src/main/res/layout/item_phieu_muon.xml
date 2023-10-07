@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="#DFE8EF"
     android:layout_height="wrap_content"
     android:layout_margin="5dp">
 
@@ -36,7 +37,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Chưa trả"
+                android:text="Chưa trả sách"
                 android:textColor="#E91E63"
                 android:id="@+id/tvTrangThai_itPm"/>
         </LinearLayout>

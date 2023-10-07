@@ -141,6 +141,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_marginRight="100dp"
             android:text="Save"
             android:backgroundTint="#82B843"
@@ -148,6 +149,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="Cancel"
             android:backgroundTint="#705957"
             android:id="@+id/btnCancel_Pm_them"/>

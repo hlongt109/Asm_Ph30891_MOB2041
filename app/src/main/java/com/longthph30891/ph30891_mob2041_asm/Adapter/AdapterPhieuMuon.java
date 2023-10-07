@@ -72,7 +72,7 @@ public class AdapterPhieuMuon extends RecyclerView.Adapter<AdapterPhieuMuon.view
         holder.tvTienThue.setText(String.valueOf(pmDAO.getGiaTien(maSach)));
         holder.tvNgayThue.setText(list.get(position).getNgayMuon());
         if (list.get(position).getTrangThai() == 1) {
-            holder.tvTrangThai.setText("Đã trả");
+            holder.tvTrangThai.setText("Đã trả sách");
             holder.tvTrangThai.setTextColor(ContextCompat.getColor(context, R.color.trangThai));
         }
 //        else {

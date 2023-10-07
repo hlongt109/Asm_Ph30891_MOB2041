@@ -12,6 +12,13 @@
                 android:layout_height="150dp"
                 android:src="@drawable/logo_pnlib"
                 android:scaleType="centerCrop"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Đăng nhập"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:textColor="#94c5f4"/>
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,6 +61,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_marginHorizontal="30dp"
             android:text="Login"
             android:backgroundTint="#82B843"
@@ -61,6 +69,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_marginHorizontal="30dp"
             android:text="Exit"
             android:backgroundTint="#484036"
