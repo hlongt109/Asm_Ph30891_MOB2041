@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 } else if (item.getItemId() == R.id.nav_Top10) {
                     frgTop frgTop = new frgTop();
                     replaceFrg(frgTop);
-                    toolbar.setTitle("TOP 10 SÁCH MƯỢN NHIỀU NHẤT");
+                    toolbar.setTitle("TOP 10 SÁCH MƯỢN NHIỀU");
                 } else if (item.getItemId() == R.id.nav_DoanhThu) {
                     frgDoanhThu frgDoanhThu = new frgDoanhThu();
                     replaceFrg(frgDoanhThu);
