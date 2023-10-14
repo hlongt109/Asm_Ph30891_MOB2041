@@ -75,9 +75,10 @@ public class AdapterPhieuMuon extends RecyclerView.Adapter<AdapterPhieuMuon.view
             holder.tvTrangThai.setText("Đã trả sách");
             holder.tvTrangThai.setTextColor(ContextCompat.getColor(context, R.color.trangThai));
         }
-//        else {
-//            holder.tvTrangThai.setText("Chưa trả");
-//        }
+        else {
+            holder.tvTrangThai.setText("Chưa trả sách");
+            holder.tvTrangThai.setTextColor(ContextCompat.getColor(context, R.color.chuatra));
+        }
 
         //
         holder.imgDelete.setOnClickListener(new View.OnClickListener() {

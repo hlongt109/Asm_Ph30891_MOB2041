@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.longthph30891.ph30891_mob2041_asm.DAO.AdminDAO;
 import com.longthph30891.ph30891_mob2041_asm.DAO.thuThuDAO;
 import com.longthph30891.ph30891_mob2041_asm.Model.ThuThu;
 import com.longthph30891.ph30891_mob2041_asm.R;
@@ -25,6 +26,7 @@ public class frgDoiMk extends Fragment {
     TextInputEditText edOldPass, edNewPass, edConf;
     Button btnSave, btnCancel;
     thuThuDAO ttDAO;
+    AdminDAO adminDAO;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

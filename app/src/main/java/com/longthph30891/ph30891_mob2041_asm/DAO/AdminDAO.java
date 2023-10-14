@@ -24,7 +24,7 @@ public class AdminDAO {
     }
     public boolean checkOldPassword(String password){
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String query = "SELECT * FROM ADMIN WHERE PASSWORD =?";
+        String query = "SELECT * FROM ADMIN WHERE PASSWORD = ?";
         String[] selectionArgs ={password};
         Cursor cursor = db.rawQuery(query,selectionArgs);
         boolean result = cursor.getCount()>0;
