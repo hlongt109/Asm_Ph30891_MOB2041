@@ -92,7 +92,6 @@ public class frgQLySach extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 matl = listLs.get(position).getMaTheLoai();
-                Toast.makeText(getActivity(), "Chọn "+matl, Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
